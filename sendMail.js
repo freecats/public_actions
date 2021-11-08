@@ -2,8 +2,8 @@ const nodemailer = require('nodemailer');
 
 const sendMail = async (data) => {
   let transporter = nodemailer.createTransport({
-    host: 'smtp.qq.com',
-    port: '465',
+    host: 'smtp.richinfo.cn',
+    port: '25',
     secureConnection: true,
     auth: {
       user: process.env.user,
