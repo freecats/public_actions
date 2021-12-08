@@ -5,6 +5,7 @@ const [cookie, user, pass, to] = process.argv.slice(2);
 process.env.user = user;
 process.env.pass = pass;
 let score = 0;
+let incr_point = 0;
 
 const headers = {
   'content-type': 'application/json; charset=utf-8',
@@ -73,6 +74,7 @@ const drawFn = async () => {
 
   console.log("签到:");
   console.log(JSON.stringify(check_in));
+  incr_point = check_in.data.incr_point;
   
   if (check_in.err_no !== 0) return Promise.reject('签到异常！');
   return Promise.resolve(`签到成功！当前积分；${check_in.data.sum_point}`);
@@ -99,6 +101,7 @@ const drawFn = async () => {
       html: `
         <h1 style="text-align: center">自动签到通知</h1>
         <p style="text-indent: 2em">签到结果：${msg}</p>
+        <p style="text-indent: 2em">签到获得：${incr_point}</p><br/>
         <p style="text-indent: 2em">当前积分：${score}</p><br/>
       `
     }).catch(console.error);
