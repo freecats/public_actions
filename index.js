@@ -26,6 +26,9 @@ const drawFn = async () => {
     method: 'GET',
     credentials: 'include'
   }).then((res) => res.json());
+  
+  console.log("查询今日是否有免费抽奖机会：");
+  console.log(JSON.stringify(today));
 
   if (today.err_no !== 0) return Promise.reject('已经签到！免费抽奖失败！');
   if (today.data.free_count === 0) return Promise.resolve('签到成功！今日已经免费抽奖！');
@@ -37,6 +40,9 @@ const drawFn = async () => {
     credentials: 'include'
   }).then((res) => res.json());
 
+  console.log("免费抽奖:");
+  console.log(JSON.stringify(draw));
+  
   if (draw.err_no !== 0) return Promise.reject('已经签到！免费抽奖异常！');
   console.log(JSON.stringify(draw, null, 2));
   if (draw.data.lottery_type === 1) score += 66;
@@ -52,6 +58,9 @@ const drawFn = async () => {
     credentials: 'include'
   }).then((res) => res.json());
 
+  console.log("查询今日是否已经签到:");
+  console.log(JSON.stringify(today_status));
+  
   if (today_status.err_no !== 0) return Promise.reject('签到失败！');
   if (today_status.data) return Promise.resolve('今日已经签到！');
 
@@ -62,6 +71,9 @@ const drawFn = async () => {
     credentials: 'include'
   }).then((res) => res.json());
 
+  console.log("签到:");
+  console.log(JSON.stringify(check_in));
+  
   if (check_in.err_no !== 0) return Promise.reject('签到异常！');
   return Promise.resolve(`签到成功！当前积分；${check_in.data.sum_point}`);
 })()
