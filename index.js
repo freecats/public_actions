@@ -68,7 +68,7 @@ const drawFn = async () => {
    // 查询连续天数
   const continuous = await fetch('https://api.juejin.cn/growth_api/v1/get_counts', {
     headers,
-    method: 'POST',
+    method: 'GET',
     credentials: 'include'
   }).then((res) => res.json());
   
