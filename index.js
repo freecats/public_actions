@@ -6,6 +6,8 @@ process.env.user = user;
 process.env.pass = pass;
 let score = 0;
 let incr_point = 0;
+let cont_count = -1;
+int sum_count = -1;
 
 const headers = {
   'content-type': 'application/json; charset=utf-8',
@@ -62,6 +64,21 @@ const drawFn = async () => {
   console.log("查询今日是否已经签到:");
   console.log(JSON.stringify(today_status));
   
+   
+   // 查询连续天数
+  const continuous = await fetch('https://api.juejin.cn/growth_api/v1/get_counts', {
+    headers,
+    method: 'POST',
+    credentials: 'include'
+  }).then((res) => res.json());
+  
+  console.log("查询连续天数:");
+  console.log(JSON.stringify(continuous));
+  if(continuous.err_no == 0){
+     cont_count = continuous.data.cont_count;
+     sum_count = continuous.data.sum_count;
+  }
+  
   if (today_status.err_no !== 0) return Promise.reject('签到失败！');
   if (today_status.data) return Promise.resolve('今日已经签到！');
 
@@ -76,7 +93,11 @@ const drawFn = async () => {
   console.log(JSON.stringify(check_in));
   incr_point = check_in.data.incr_point;
   
+  
   if (check_in.err_no !== 0) return Promise.reject('签到异常！');
+  
+  cont_count += 1;
+  sum_count += 1;
   return Promise.resolve(`签到成功！当前积分；${check_in.data.sum_point}`);
 })()
   .then((msg) => {
@@ -101,8 +122,10 @@ const drawFn = async () => {
       html: `
         <h1 style="text-align: center">自动签到通知</h1>
         <p style="text-indent: 2em">签到结果：${msg}</p>
-        <p style="text-indent: 2em">签到获得：${incr_point}</p><br/>
-        <p style="text-indent: 2em">当前积分：${score}</p><br/>
+        <p style="text-indent: 2em">签到获得：${incr_point}</p>
+        <p style="text-indent: 2em">当前积分：${score}</p>
+        <p style="text-indent: 2em">总共签到：${sum_count}天</p>
+        <p style="text-indent: 2em">连续签到：${cont_count}天</p>       
       `
     }).catch(console.error);
   })
@@ -117,7 +140,9 @@ const drawFn = async () => {
       html: `
         <h1 style="text-align: center">自动签到通知</h1>
         <p style="text-indent: 2em">执行结果：${err}</p>
-        <p style="text-indent: 2em">当前积分：${score}</p><br/>
+        <p style="text-indent: 2em">当前积分：${score}</p>
+        <p style="text-indent: 2em">总共签到：${sum_count}天</p>
+        <p style="text-indent: 2em">连续签到：${cont_count}天</p><br/>
       `
     }).catch(console.error);
   });
