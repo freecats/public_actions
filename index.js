@@ -7,7 +7,7 @@ process.env.pass = pass;
 let score = 0;
 let incr_point = 0;
 let cont_count = -1;
-int sum_count = -1;
+let sum_count = -1;
 
 const headers = {
   'content-type': 'application/json; charset=utf-8',
