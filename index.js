@@ -55,7 +55,7 @@ const drawFn = async () => {
 // 签到
 (async () => {
   // 沾喜气
-  const dip_lucky = = await fetch('https://api.juejin.cn/growth_api/v1/lottery_lucky/dip_lucky', {
+  const dip_lucky = await fetch('https://api.juejin.cn/growth_api/v1/lottery_lucky/dip_lucky', {
     headers,
     method: 'POST',
     body: JSON.stringify({
