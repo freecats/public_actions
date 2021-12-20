@@ -54,6 +54,20 @@ const drawFn = async () => {
 
 // 签到
 (async () => {
+  // 沾喜气
+  const dip_lucky = = await fetch('https://api.juejin.cn/growth_api/v1/lottery_lucky/dip_lucky', {
+    headers,
+    method: 'POST',
+    body: JSON.stringify({
+      lottery_history_id: '7020267603864059917',
+    }),
+    credentials: 'include'
+  }).then((res) => res.json());
+    
+  console.log("沾喜气:");
+  console.log(JSON.stringify(dip_lucky));
+  
+  
   // 查询今日是否已经签到
   const today_status = await fetch('https://api.juejin.cn/growth_api/v1/get_today_status', {
     headers,
