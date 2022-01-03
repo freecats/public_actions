@@ -48,7 +48,19 @@ const drawFn = async () => {
   
   if (draw.err_no !== 0) return Promise.reject('已经签到！免费抽奖异常！');
   console.log(JSON.stringify(draw, null, 2));
-  if (draw.data.lottery_type === 1) score += 66;
+  
+  
+  if (draw.data.lottery_type === 1) {
+    let currentScore = fetch('https://api.juejin.cn/growth_api/v1/get_cur_point', {
+      headers,
+      method: 'GET',
+      credentials: 'include'
+    }).then((res) => res.json());
+    console.log(JSON.stringify(currentScore));
+    score = currentScore.data;
+  }
+  
+  
   return Promise.resolve(`签到成功！恭喜抽到：${draw.data.lottery_name}`);
 };
 
