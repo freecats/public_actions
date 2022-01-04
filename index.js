@@ -51,12 +51,15 @@ const drawFn = async () => {
   
   
   if (draw.data.lottery_type === 1) {
-    let currentScore = fetch('https://api.juejin.cn/growth_api/v1/get_cur_point', {
+    const currentScore = await fetch('https://api.juejin.cn/growth_api/v1/get_cur_point', {
       headers,
       method: 'GET',
       credentials: 'include'
     }).then((res) => res.json());
+    
+    console.log("再次查询总积分：");
     console.log(JSON.stringify(currentScore));
+    
     score = currentScore.data;
   }
   
