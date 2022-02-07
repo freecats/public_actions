@@ -74,7 +74,7 @@ const drawFn = async () => {
     headers,
     method: 'POST',
     body: JSON.stringify({
-      lottery_history_id: '7020267603864059917',
+      lottery_history_id: '7059564977484464158',
     }),
     credentials: 'include'
   }).then((res) => res.json());
