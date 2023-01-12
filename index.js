@@ -32,11 +32,12 @@ const { autoGame } = require('./src/games/autoRun');
   console.log(draw_res);
 
   let game_res = '挖矿成功！';
-  try {
-    await autoGame();
-  } catch (error) {
-    game_res = '挖矿失败！';
-  }
+//   try {
+//     await autoGame();
+//   } catch (error) {
+//     game_res = '挖矿失败！';
+//   }
+  game_res = "取消挖坑";
 
   // 当前分数
   const now_score = await getPoint();
