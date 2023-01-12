@@ -37,7 +37,7 @@ const { autoGame } = require('./src/games/autoRun');
 //   } catch (error) {
 //     game_res = '挖矿失败！';
 //   }
-  game_res = "取消挖坑";
+  game_res = "取消挖矿！";
 
   // 当前分数
   const now_score = await getPoint();
